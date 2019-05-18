@@ -151,7 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClarificationOfRatings.cpp" />
+    <ClCompile Include="Fraction.cpp" />
+    <ClCompile Include="Frac_matr.cpp" />
     <ClCompile Include="lab7.cpp" />
+    <ClCompile Include="SimplexArtificial.cpp" />
+    <ClCompile Include="Simplex_table.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ClarificationOfRatings.h" />
+    <ClInclude Include="Fraction.h" />
+    <ClInclude Include="Frac_matr.h" />
+    <ClInclude Include="SimplexArtificial.h" />
+    <ClInclude Include="Simplex_table.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
