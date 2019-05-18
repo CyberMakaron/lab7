@@ -17,4 +17,3 @@ public:
 	/*Вывод на экран симплкс-таблицы с полями соответсвующими методу больших штрафов*/
 	std::ostream& outputArtificialTable(std::ostream&);
 };
-

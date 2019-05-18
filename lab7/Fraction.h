@@ -34,4 +34,3 @@ public:
 	void operator =(long);
 	void operator =(Fraction);
 };
-

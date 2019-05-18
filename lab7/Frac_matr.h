@@ -29,4 +29,3 @@ public:
 	friend std::istream& operator >>(std::istream&, Frac_matr&);
 	Frac_arr& operator [](long);
 };
-
