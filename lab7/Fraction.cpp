@@ -59,13 +59,6 @@ Fraction operator -(Fraction& a, Fraction& b)
 	return c;
 }
 
-/*Fraction& Fraction::operator -()
-{
-	Fraction a;
-	a.numerator = -numerator;
-	a.denominator = denominator;
-	return a;
-}*/
 
 Fraction operator *(Fraction& a, Fraction& b)
 {
@@ -186,4 +179,23 @@ void Fraction::operator =(Fraction b)
 	numerator = b.numerator;
 	denominator = b.denominator;
 	ReduceFrac();
+}
+
+Fraction Fraction::operator -()
+{
+	Fraction a;
+	a.numerator = -numerator;
+	a.denominator = denominator;
+	return a;
+}
+
+Fraction Fraction::mod() {
+	Fraction a = *this;
+	if (a > 0)
+		while (a.numerator >= a.denominator)
+			a.numerator -= a.denominator;
+	else
+		while (a.numerator < 0)
+			a.numerator += a.denominator;
+	return a;
 }

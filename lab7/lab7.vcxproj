@@ -151,17 +151,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BranchesAndBorders.cpp" />
     <ClCompile Include="ClarificationOfRatings.cpp" />
     <ClCompile Include="Fraction.cpp" />
     <ClCompile Include="Frac_matr.cpp" />
+    <ClCompile Include="Gomory.cpp" />
     <ClCompile Include="lab7.cpp" />
     <ClCompile Include="SimplexArtificial.cpp" />
     <ClCompile Include="Simplex_table.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BranchesAndBorders.h" />
     <ClInclude Include="ClarificationOfRatings.h" />
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Frac_matr.h" />
+    <ClInclude Include="Gomory.h" />
     <ClInclude Include="SimplexArtificial.h" />
     <ClInclude Include="Simplex_table.h" />
   </ItemGroup>

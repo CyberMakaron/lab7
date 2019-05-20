@@ -7,6 +7,7 @@ class Frac_arr {
 public:
 	Frac_arr(long);
 	Fraction& operator [](long);
+	void create(long n);
 	void operator =(Frac_arr&);
 	void operator *=(Frac_arr);
 	void operator *=(Fraction);
@@ -18,9 +19,10 @@ public:
 };
 
 class Frac_matr {
+	public:
 	Frac_arr **A;
 	long m, n;
-public:
+
 	Frac_matr(long, long);
 	//~Frac_matr();
 	Frac_matr() : A(NULL) {}
@@ -28,4 +30,5 @@ public:
 	friend std::ostream& operator <<(std::ostream&, Frac_matr&);
 	friend std::istream& operator >>(std::istream&, Frac_matr&);
 	Frac_arr& operator [](long);
+	void operator =(Frac_matr& M);
 };

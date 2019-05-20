@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include "Simplex_table.h"
 
 class ClarSimplexTable : public Simplex_table {
 public:
-	ClarSimplexTable(long m, long n):Simplex_table(m ,n) {};
-	long clarification_step();  //шаг метода уточнения оценок
-	void clarification();		//метод уточнения оценок, использует симплекс-метод из simplex_table
-	bool is_last();				//Является ли таблица последней
-	bool is_valid();			//Является ли таблица допустимой
+	ClarSimplexTable(long m, long n) :Simplex_table(m, n) {};
+	long clarification_step();  //С€Р°Рі РјРµС‚РѕРґР° СѓС‚РѕС‡РЅРµРЅРёСЏ РѕС†РµРЅРѕРє
+	void clarification();		//РјРµС‚РѕРґ СѓС‚РѕС‡РЅРµРЅРёСЏ РѕС†РµРЅРѕРє, РёСЃРїРѕР»СЊР·СѓРµС‚ СЃРёРјРїР»РµРєСЃ-РјРµС‚РѕРґ РёР· simplex_table
+	bool is_last();				//РЇРІР»СЏРµС‚СЃСЏ Р»Рё С‚Р°Р±Р»РёС†Р° РїРѕСЃР»РµРґРЅРµР№
+	bool is_valid();			//РЇРІР»СЏРµС‚СЃСЏ Р»Рё С‚Р°Р±Р»РёС†Р° РґРѕРїСѓСЃС‚РёРјРѕР№
 };

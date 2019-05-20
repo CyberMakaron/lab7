@@ -16,36 +16,54 @@ void Simplex_table::Input_SLU(std::istream& in)
 
 void Simplex_table::GetSimplexTable()
 {
-	long *a = new long[n - 1];
+	long k = 0, p;
+	long* a = new long[m + n - 1];	//массив уединённых положительных коэффициентов (базисных столбцов)
 	for (long j = 0; j < n - 1; j++) {
-		a[j] = 0;
-		for (long i = 0; i < m; i++)
-			if (SLU[i][j] != 0)
-				if (SLU[i][j] == 1 && a[j] != 1)
-					a[j] = 1;
-				else {
-					a[j] = 0;
+		a[j] = -1;
+		for (long i = 0; i < m; i++) {
+			if (SLU[i][j] < 0) {
+				a[j] = -1;
+				break;
+			}
+			if (SLU[i][j] > 0 && a[j] == -1)
+				a[j] = i;
+			else
+				if (SLU[i][j] != 0 && a[j] != -1) {
+					a[j] = -1;
 					break;
 				}
+		}
 	}
-	x = 1; //убязательно есть строка целевой функции
-	for (long i = 0; i < n - 1; i++)
-		if (a[i] == 1) x++;
+	x = m + 1;
 	y = n;
 	T.Create(x, y);
-	base = new long[x-1];
-	long k = 0, p;
-	for (long i = 0; i < n - 1; i++)
-		if (a[i] == 1)
+	base = new long[x - 1];
+	for (long i = 0; i < n - 1; i++) {
+		if (a[i] >= 0)
 		{
+			p = a[i];
 			base[k] = i + 1;
-			p = 0;
-			while (SLU[p][i] == 0) p++;
 			T[k][0] = SLU[p][n - 1];
 			for (long j = 0; j < n - 1; j++)
-				T[k][j + 1] = SLU[p][j];
+				T[k][j + 1] = SLU[a[i]][j];
+			if (SLU[a[i]][i] != 1)
+				T[k] /= SLU[a[i]][i];
 			k++;
 		}
+	}
+	/*Fraction tmp;
+	Frac_arr tmp_ar(m + n);
+	for (long i = 0; i < n; i++)
+		if (a[i] >= 0) {
+			tmp_ar = SLU[a[i]];
+			for (int i = 0; i < n; i++)
+				std::cout << tmp_ar[i];
+			tmp_ar /= SLU[a[i]][i];
+			tmp_ar[n - 1] *= -1;
+			tmp = Z[i]; tmp *= -1;
+			tmp_ar *= tmp;
+			Z += tmp_ar;
+		}*/
 	for (long i = 0; i < n - 1; i++) {
 		T[k][i + 1].numerator = -Z[i].numerator;		//по итогу k = x - 1, т.е послежня строка
 		T[k][i + 1].denominator = Z[i].denominator;
@@ -107,18 +125,18 @@ long Search(long* a, long n, long k, long* j)
 
 long Simplex_table::Simplex()
 {
-	GetSimplexTable(); std::cout << *this << std::endl;
-	while (SimplexStep()) std::cout << *this << std::endl;
-	std::cout << "Z_max = " << T[x - 1][0] << std::endl;
-	std::cout << "т.max (";
-	long j;
+	GetSimplexTable();/// std::cout << *this << std::endl;
+	while (SimplexStep());/// std::cout << *this << std::endl;
+	///std::cout << "Z_max = " << T[x - 1][0] << std::endl;
+	///std::cout << "т.max (";
+	/*long j;
 	for (long i = 1; i < y; i++) {
 		if (Search(base, x - 1, i, &j))
 			std::cout << T[j][0];
 		else std::cout << "     0    ";
 		if (i < y - 1) std::cout << ", ";
 	}
-	std::cout << ")" << std::endl;
+	std::cout << ")" << std::endl;*/
 	return 0;
 }
 

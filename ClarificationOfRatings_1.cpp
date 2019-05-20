@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #include <iostream>
 #include <iomanip>
 #include "ClarificationOfRatings.h"
@@ -7,12 +7,11 @@ using namespace std;
 
 void ClarSimplexTable::clarification() {
 	GetSimplexTable();
-	cout << "Ð ÐµÑˆÐµÐ½Ð¸Ðµ Ð´Ð²Ð¾Ð¹ÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¼ ÑÐ¸Ð¼Ð¿Ð»ÐµÐºÑ-Ð¼ÐµÑ‚Ð¾Ð´Ð¾Ð¼:" << endl;
-	cout << *this << endl;
-	while (1) {
+	cout << *this;
+	while (1){
 		if (is_valid()) {
 			cout << endl;
-			cout << "simplex step:" << endl;
+			//cout << "simplex step:" << endl;
 			SimplexStep();
 			cout << *this << endl;
 			getchar();
@@ -20,7 +19,7 @@ void ClarSimplexTable::clarification() {
 		}
 		else {
 			cout << endl;
-			cout << "clarification step:" << endl;
+			//cout << "clarification step:" << endl;
 			clarification_step();
 			cout << *this << endl;
 			//getchar();
@@ -30,15 +29,20 @@ void ClarSimplexTable::clarification() {
 }
 
 bool ClarSimplexTable::is_valid() {
-	for (int i = 0; i < x - 1; i++) {
-		if (T[i][0] < 0) return false;
+	for (int i = 0; i < m; i++) {
+		double tmp = T[i][0].numerator / T[i][0].denominator;
+		if (tmp < 0) {
+			return false;
+		}
 	}
 	return true;
 }
 
 bool ClarSimplexTable::is_last() {
 	for (int i = 1; i < y; i++) {
-		if (T[x - 1][i] < 0) return false;
+		double tmp;
+		tmp = (double)T[m][i].numerator / (double)T[m][i].denominator;
+		if (tmp < 0) return false;
 	}
 	return true;
 
@@ -46,7 +50,7 @@ bool ClarSimplexTable::is_last() {
 
 
 long ClarSimplexTable::clarification_step() {
-	long i, j, p, q, t; //p, q - Ð¸Ð½Ð´ÐµÐºÑÑ‹ Ñ€Ð°Ð·Ñ€ÐµÑˆÐ°ÑŽÑ‰ÐµÐ³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°
+	long i, j, p, q, t; //p, q - èíäåêñû ðàçðåøàþùåãî ýëåìåíòà
 	Fraction min, max, tmp;
 	Frac_arr tmp_arr(y);
 	Fraction zero;
@@ -87,7 +91,7 @@ long ClarSimplexTable::clarification_step() {
 			iterations++;
 		}
 		if (iterations == y) {
-			cout << "ÐÐµÐ´Ð¾Ð¿ÑƒÑÑ‚Ð¸Ð¼Ð°Ñ Ð·Ð°Ð´Ð°Ñ‡Ð°!";
+			cout << "Íåäîïóñòèìàÿ çàäà÷à!";
 			exit(1);
 		}
 

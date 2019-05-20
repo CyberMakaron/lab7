@@ -19,7 +19,12 @@ Frac_matr::~Frac_matr()
 void Frac_matr::Create(long m1, long n1)
 {
 	m = m1; n = n1;
-	A = new Frac_arr*[m];
+	if (A != NULL) {
+		/*for (long i = 0; i < m; i++)
+			delete[] *(A[i]);*/
+		delete[] A;
+	}
+	A = new Frac_arr * [m];
 	for (long i = 0; i < m; i++)
 		A[i] = new Frac_arr(n);
 	/*m = m1; n = n1;
@@ -63,8 +68,18 @@ Fraction& Frac_arr::operator [](long i)
 	return array[i];
 }
 
+void Frac_arr::create(long n) {
+	if (this->n != n) {
+		this->n = n;
+		if (array != NULL)
+			delete[] array;
+		array = new Fraction[n];
+	}
+}
+
 void Frac_arr::operator =(Frac_arr& a)
 {
+	create(a.n);
 	for (long i = 0; i < n; i++)
 		array[i] = a[i];
 }
@@ -108,3 +123,10 @@ void Frac_arr::operator +=(Frac_arr a)
 {
 	delete[] array;
 }*/
+
+void Frac_matr::operator =(Frac_matr& M) {
+	Create(M.m, M.n);
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++)
+			(*(A[i]))[j] = M[i][j];
+}

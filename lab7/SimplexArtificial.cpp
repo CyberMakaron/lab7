@@ -19,7 +19,7 @@ long check1(long* a, long n, long k, long* j)
 
 void SimplexArtificial::getSimplexArtificialTable() {
 	long k = n, p;
-	long *a = new long[m + n - 1];	//массив уединённых положительных коэффициентов (базисных столбцов)
+	long* a = new long[m + n - 1];	//массив уединённых положительных коэффициентов (базисных столбцов)
 	for (long j = 0; j < n - 1; j++) {
 		a[j] = -1;
 		for (long i = 0; i < m; i++) {
@@ -184,8 +184,8 @@ long Search2(long* a, long n, long k, long* j)
 }
 
 long SimplexArtificial::simplexArtificial() {
-	getSimplexArtificialTable(); outputArtificialTable(std::cout);
-	while (simplexArtificialStep()) outputArtificialTable(std::cout);
+	getSimplexArtificialTable(); ///outputArtificialTable(std::cout);
+	while (simplexArtificialStep()); ///outputArtificialTable(std::cout);
 	replace_y();
 	T.Create(x, y);
 	for (long i = 0; i < x; i++)
@@ -230,9 +230,9 @@ long SimplexArtificial::simplexArtificial() {
 		T[x - 1][i + 1].denominator = Z[i].denominator;
 	}
 	T[x - 1][0] = Z[n - 1];
-	std::cout << *this << std::endl;
-	while (SimplexStep()) std::cout << *this << std::endl;
-	std::cout << "Z_max = " << T[x - 1][0] << std::endl;
+	///std::cout << *this << std::endl;
+	while (SimplexStep());/// std::cout << *this << std::endl;
+	/*std::cout << "Z_max = " << T[x - 1][0] << std::endl;
 	std::cout << "т.max (";
 	long j;
 	for (long i = 1; i < y; i++) {
@@ -241,11 +241,11 @@ long SimplexArtificial::simplexArtificial() {
 		else std::cout << "     0    ";
 		if (i < y - 1) std::cout << ", ";
 	}
-	std::cout << ")" << std::endl;
+	std::cout << ")" << std::endl;*/
 	return 0;
 }
 
-std::ostream& SimplexArtificial::outputArtificialTable(std::ostream& out) {
+void SimplexArtificial::outputArtificialTable(std::ostream& out) {
 	out << "| б.п. |    св.ч.   |";
 	for (long i = 0; i < y1 - 1; i++)
 		if (i < y - 1)
@@ -278,5 +278,4 @@ std::ostream& SimplexArtificial::outputArtificialTable(std::ostream& out) {
 	for (long k = 0; k < y1; k++)
 		out << "------------+";
 	out << std::endl << std::endl;
-	return out;
 }

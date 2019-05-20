@@ -12,7 +12,7 @@ public:
 	friend std::istream& operator >>(std::istream&, Fraction&);
 	friend Fraction operator +(Fraction&, Fraction&);
 	friend Fraction operator -(Fraction&, Fraction&);
-	//Fraction& operator -();
+	Fraction operator -();
 	friend Fraction operator *(Fraction&, Fraction&);
 	friend Fraction operator /(Fraction&, Fraction&);
 	friend long operator ==(Fraction&, Fraction&);
@@ -33,4 +33,5 @@ public:
 	void operator +=(Fraction);
 	void operator =(long);
 	void operator =(Fraction);
+	Fraction mod();
 };
