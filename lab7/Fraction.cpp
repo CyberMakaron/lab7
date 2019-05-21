@@ -71,6 +71,7 @@ Fraction operator *(Fraction& a, Fraction& b)
 
 Fraction operator /(Fraction& a, Fraction& b)
 {
+	if (b.numerator == 0) throw 1;
 	Fraction c;
 	c.numerator = a.numerator * b.denominator;
 	c.denominator = a.denominator * b.numerator;
@@ -155,6 +156,7 @@ void Fraction::operator *=(long a)
 
 void Fraction::operator /=(Fraction a)
 {
+	if (a.numerator == 0) throw 1;
 	numerator *= a.denominator;
 	denominator *= a.numerator;
 	ReduceFrac();

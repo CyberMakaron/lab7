@@ -88,7 +88,7 @@ long ClarSimplexTable::clarification_step() {
 		}
 		if (iterations == y) {
 			cout << "Недопустимая задача!";
-			exit(1);
+			//exit(1);
 		}
 
 	}

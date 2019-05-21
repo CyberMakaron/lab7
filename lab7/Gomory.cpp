@@ -140,12 +140,40 @@ void Gomory::GomoryStep() {
 		else outputSolution(S);
 }
 
+long Search3(long* a, long n, long k, long* j)
+{
+	for (long i = 0; i < n; i++)
+		if (k == a[i]) {
+			*j = i;
+			return 1;
+		}
+	return 0;
+}
+
 void Gomory::outputSolution(SimplexArtificial& S) {
 	S.outputArtificialTable(cout);
 	cout << "Z_max = " << S.T[S.x - 1][0] << endl;
+	std::cout << "ò.max (";
+	long j;
+	for (long i = 1; i < S.y; i++) {
+		if (Search3(S.base, S.x - 1, i, &j))
+			std::cout << S.T[j][0];
+		else std::cout << "     0    ";
+		if (i < S.y - 1) std::cout << ", ";
+	}
+	std::cout << ")" << std::endl;
 }
 
 void Gomory::outputSolution(ClarSimplexTable& C) {
 	cout << C;
 	cout << "Z_max = " << C.T[C.x - 1][0] << endl;
+	std::cout << "ò.max (";
+	long j;
+	for (long i = 1; i < C.y; i++) {
+		if (Search3(C.base, C.x - 1, i, &j))
+			std::cout << C.T[j][0];
+		else std::cout << "     0    ";
+		if (i < C.y - 1) std::cout << ", ";
+	}
+	std::cout << ")" << std::endl;
 }

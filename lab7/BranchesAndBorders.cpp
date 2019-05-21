@@ -90,7 +90,7 @@ void BranchesAndBorders::addRestrictions_1(long* base, Frac_matr &M, Frac_arr &Z
 		a[M.m][i] = 0;
 	Fraction tmp(1, 1);
 	tmp += M[k][M.n - 1]; tmp += -(M[k][M.n - 1].mod());
-	a[M.m][n - 1] = -1; a[M.m][M.n] = tmp;
+	a[M.m][M.n - 1] = -1; a[M.m][M.n] = tmp;
 	a[M.m][base[k] - 1] = 1;
 	Frac_arr b(M.n + 1);
 	for (int i = 0; i < M.n - 1; i++)
@@ -134,18 +134,18 @@ void BranchesAndBorders::branchesAndBordersSolution() {
 	cout << S;
 	copyFromSimp(S, M, Z);
 	if (!check_int(m, n, M)) {
-		branchesAndBordersStep_2(m, n, S.base, M, Z);
-		branchesAndBordersStep_1(m, n, S.base, M, Z);
+		branchesAndBordersStep_1(m + 1, n + 1, S.base, M, Z);
+		branchesAndBordersStep_2(m + 1, n + 1, S.base, M, Z);
 	}
 	else outputSolution(S);
 }
 
 void BranchesAndBorders::branchesAndBordersStep_1(long m, long n, long *base, Frac_matr M, Frac_arr Z) {
 	int f;
-	ClarSimplexTable C(m + 1, n + 1);
-	SimplexArtificial S(m + 1, n + 1);
+	ClarSimplexTable C(m, n);
+	SimplexArtificial S(m, n);
 	addRestrictions_1(base, M, Z);
-	if (isPsevdo(m + 1, n + 1, M)) {
+	if (isPsevdo(m, n, M)) {
 		copyToClar(C, M, Z);
 		C.clarification();
 		copyFromClar(C, M, Z);
@@ -158,14 +158,14 @@ void BranchesAndBorders::branchesAndBordersStep_1(long m, long n, long *base, Fr
 		copyFromSimp(S, M, Z);
 		f = 2;
 	}
-	if (!check_int(m + 1, n + 1, M)) {
+	if (!check_int(m, n, M)) {
 		if (f == 1) {
-			branchesAndBordersStep_2(m + 1, n + 1, C.base, M, Z);
 			branchesAndBordersStep_1(m + 1, n + 1, C.base, M, Z);
+			branchesAndBordersStep_2(m + 1, n + 1, C.base, M, Z);
 		}
 		else {
-			branchesAndBordersStep_2(m + 1, n + 1, S.base, M, Z);
 			branchesAndBordersStep_1(m + 1, n + 1, S.base, M, Z);
+			branchesAndBordersStep_2(m + 1, n + 1, S.base, M, Z);
 		}
 	}
 	else
@@ -175,10 +175,10 @@ void BranchesAndBorders::branchesAndBordersStep_1(long m, long n, long *base, Fr
 
 void BranchesAndBorders::branchesAndBordersStep_2(long m, long n, long* base, Frac_matr M, Frac_arr Z) {
 	int f;
-	ClarSimplexTable C(m + 1, n + 1);
-	SimplexArtificial S(m + 1, n + 1);
+	ClarSimplexTable C(m, n);
+	SimplexArtificial S(m, n);
 	addRestrictions_2(base, M, Z);
-	if (isPsevdo(m + 1, n + 1, M)) {
+	if (isPsevdo(m, n, M)) {
 		copyToClar(C, M, Z);
 		C.clarification();
 		copyFromClar(C, M, Z);
@@ -191,14 +191,14 @@ void BranchesAndBorders::branchesAndBordersStep_2(long m, long n, long* base, Fr
 		copyFromSimp(S, M, Z);
 		f = 2;
 	}
-	if (!check_int(m + 1, n + 1, M)) {
+	if (!check_int(m, n, M)) {
 		if (f == 1) {
-			branchesAndBordersStep_2(m + 1, n + 1, C.base, M, Z);
 			branchesAndBordersStep_1(m + 1, n + 1, C.base, M, Z);
+			branchesAndBordersStep_2(m + 1, n + 1, C.base, M, Z);
 		}
 		else {
-			branchesAndBordersStep_2(m + 1, n + 1, S.base, M, Z);
 			branchesAndBordersStep_1(m + 1, n + 1, S.base, M, Z);
+			branchesAndBordersStep_2(m + 1, n + 1, S.base, M, Z);
 		}
 	}
 	else
@@ -208,7 +208,7 @@ void BranchesAndBorders::branchesAndBordersStep_2(long m, long n, long* base, Fr
 
 void BranchesAndBorders::outputSolution(SimplexArtificial & S) {
 	if (flag == 0) {
-		max_ = S.T[S.x - 1][0];  
+		max_ = S.T[S.x - 1][0];
 		flag = 1;
 	}
 	if (S.T[S.x - 1][0] >= max_) {
@@ -219,7 +219,7 @@ void BranchesAndBorders::outputSolution(SimplexArtificial & S) {
 
 void BranchesAndBorders::outputSolution(ClarSimplexTable & C) {
 	if (flag == 0) {
-		max_ = C.T[C.x - 1][0];
+		max_ = C.T[C.x - 1][0];	
 		flag = 1;
 	}
 	if (C.T[C.x - 1][0] >= max_) {

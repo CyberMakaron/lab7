@@ -12,9 +12,9 @@ int main()
 	long m, n;
 	cout << "Введите m и n: ";
 	cin >> m >> n;
-	/*Gomory G(m, n);
+	Gomory G(m, n);
 	G.Input();
-	G.GomorySolution();*/
-	BranchesAndBorders B(m, n);
-	B.branchesAndBordersSolution();
+	G.GomorySolution();
+	/*BranchesAndBorders B(m, n);
+	B.branchesAndBordersSolution();*/
 }
